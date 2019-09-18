@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Windows;
+using System.Windows.Threading;
 
 namespace CutVideoToGif.Helper
 {
@@ -58,12 +59,12 @@ namespace CutVideoToGif.Helper
                 }
                 catch (Exception exception)
                 {
-                    MessageBox.Show(exception.Message);
+                    Dispatcher.CurrentDispatcher.Invoke(() => { MessageBox.Show(exception.Message); });
                 }
 
             }
 
-            MessageBox.Show("成功");
+            Dispatcher.CurrentDispatcher.Invoke(() => { MessageBox.Show("成功"); });
             return true;
         }
 
