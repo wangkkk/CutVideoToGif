@@ -96,7 +96,7 @@ namespace CutVideoToGif.ViewModel
         private void StartCutVideoToGifInvoke()
         {
             MainEnabled = false;
-            Task.Factory.StartNew(() => { MainEnabled=VideoHelper.GenerateGif(FilePath, Filter, Minute, IsRandSelect); });
+            Task.Factory.StartNew(() => { MainEnabled=VideoHelper.GenerateGif(FilePath, Filter, Minute); });
         }
     }
 }
