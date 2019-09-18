@@ -16,7 +16,7 @@ namespace CutVideoToGif.Helper
         /// 转换为gif 0 长度 1 开始转换的时间点 2 源文件 3 目标gif名称
         /// 示例：ffmpeg -t 2.3 -ss 00:00:02 -i output_file.mp4 -b 2048k small-clip.gif
         /// </summary>
-        public static string convertToGif = " -t {0} -ss {1} -i {2} -b 2048k {3}";
+        public static string convertToGif = "-v warning -ss {1} -t {0}  -i {2} -vf scale=300:-1:sws_dither=ed -y {3}";
         public static bool GenerateGif(string pathText, string filter, string Minute)
         {
             //得到所有的文件
@@ -45,7 +45,7 @@ namespace CutVideoToGif.Helper
                     string result = ExecuteHelper.Execute(ffmpegPath, nCommand);
                     int j = 0;
                     //转换为gif
-                    for (int i = 0; i < videoLength;)
+                    for (double i = 0; i < videoLength; i = j * Double.Parse(Minutes))
                     {
                         string cCommand = string.Empty;
                         //确定切割的起点
@@ -54,7 +54,6 @@ namespace CutVideoToGif.Helper
                         //执行命令
                         ExecuteHelper.Execute(ffmpegPath,$"{cCommand}_{i}.gif");
                         j++;
-                        i = Convert.ToInt32(j * Double.Parse(Minutes));
                     }           
                 }
                 catch (Exception exception)
